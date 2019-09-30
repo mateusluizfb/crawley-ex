@@ -1,17 +1,22 @@
 defmodule CrawleyTest do
   use ExUnit.Case
+  use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
   doctest Crawley
 
-  test "requests the github repos" do
-    # Mock request https://github.com/parroty/exvcr
+  setup_all do
+    HTTPoison.start
+  end
 
-    assert { 200, _, _ } = Crawley.get_repositories(
-      %{
-        lang: 'erlang',
-        per_page: 5,
-        page: 1
-      }
-    )
+  test "requests the github repos" do
+    use_cassette "github_5_erlang_repos" do
+      assert { 200, _, _ } = Crawley.get_repositories(
+        %{
+          lang: 'erlang',
+          per_page: 5,
+          page: 1
+        }
+      )
+    end
   end
 
   # test "returns erlang repos" do
