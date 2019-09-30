@@ -1,18 +1,12 @@
 defmodule Crawley do
-  @moduledoc """
-  Documentation for Crawley.
-  """
+  def get_repositories(%{lang: lang, per_page: per_page, page: page}) do
+    options = %{
+      q:        "language:#{lang}",
+      per_page: per_page,
+      page:     page,
+      sort:     "stars",
+    }
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Crawley.hello()
-      :world
-
-  """
-  def hello do
-    :world
+    Tentacat.Search.repositories(options)
   end
 end
