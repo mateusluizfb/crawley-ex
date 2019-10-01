@@ -1,21 +1,16 @@
 # Crawley
 
-**TODO: Add description**
+Before you run anything, remember to create an `.env` file like this:
 
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `crawley` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:crawley, "~> 0.1.0"}
-  ]
-end
+```
+export GITHUB_TOKEN=""
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/crawley](https://hexdocs.pm/crawley).
+The `GITHUB_TOKEN` var is your github token.
 
+### To contribute:
+
+1.  Fork the project
+2.  Make that changes you want
+3.  Create the PR to the repo
+4.  Await the review :)
