@@ -14,4 +14,8 @@ defmodule Crawley do
     client = github_client()
     Tentacat.Search.repositories(client, options)
   end
+
+  def clone_project(name, clone_url) do
+    {:ok, repo} = Git.clone [clone_url. "./tmp/#{name}"]
+  end
 end
