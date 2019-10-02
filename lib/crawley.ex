@@ -16,6 +16,14 @@ defmodule Crawley do
   end
 
   def clone_project(name, clone_url) do
-    {:ok, repo} = Git.clone [clone_url. "./tmp/#{name}"]
+    path = "./tmp/#{name}"
+    {:ok, repo} = Git.clone [clone_url. path]
+  end
+
+  def upload_repo(bucket_name, repo_name) do
+    "./tmp/#{repo_name}"
+      |> ExAws.S3.stream_file
+      |> ExAws.S3.upload(bucket_name, repo_name)
+      |> ExAws.request!
   end
 end
