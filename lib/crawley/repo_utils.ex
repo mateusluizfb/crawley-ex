@@ -1,0 +1,26 @@
+defmodule Crawley.RepoUtils do
+  def get_repositories(%{lang: lang, per_page: per_page, page: page}) do
+    options = %{
+      q:        "language:#{lang}",
+      per_page: per_page,
+      page:     page,
+      sort:     "stars",
+    }
+
+    client = github_client()
+    Tentacat.Search.repositories(client, options)
+  end
+
+  def clone_repo(name, clone_url) do
+    repo_folder = "./tmp/#{name}"
+    {:ok, _} = Git.clone([clone_url, repo_folder])
+  end
+
+  def delete_repo(repo_name) do
+    File.rm_rf("./tmp/#{repo_name}")
+  end
+
+  defp github_client() do
+    Tentacat.Client.new(%{ access_token: System.get_env("GITHUB_TOKEN") })
+  end
+end
