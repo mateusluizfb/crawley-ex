@@ -8,7 +8,8 @@ defmodule Crawley.RepoUtils do
     }
 
     client = github_client()
-    Tentacat.Search.repositories(client, options)
+    {200, _, response} = Tentacat.Search.repositories(client, options)
+    response.body["items"]
   end
 
   def clone_repo(name, clone_url) do
