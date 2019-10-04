@@ -31,4 +31,8 @@ defmodule Crawley do
     files = File.ls!("./tmp/#{repo_name}") |> Enum.map(&String.to_charlist/1)
     :zip.create("./tmp/#{repo_name}/#{repo_name}.zip", files)
   end
+
+  def delete_repo(repo_name) do
+    File.rm_rf("./tmp/#{repo_name}")
+  end
 end
