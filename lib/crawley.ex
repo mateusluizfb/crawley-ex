@@ -16,14 +16,19 @@ defmodule Crawley do
   end
 
   def clone_project(name, clone_url) do
-    path = "./tmp/#{name}"
-    {:ok, repo} = Git.clone [clone_url. path]
+    repo_folder = "./tmp/#{name}"
+    {:ok, _} = Git.clone([clone_url, repo_folder])
   end
 
   def upload_repo(bucket_name, repo_name) do
-    "./tmp/#{repo_name}"
-      |> ExAws.S3.stream_file
-      |> ExAws.S3.upload(bucket_name, repo_name)
-      |> ExAws.request!
+    "./tmp/#{repo_name}/#{repo_name}.zip"
+      |> ExAws.S3.Upload.stream_file
+      |> ExAws.S3.upload(bucket_name, "#{repo_name}.zip")
+      |> ExAws.request(region: "sa-east-1")
+  end
+
+  def zip_folder(repo_name) do
+    files = File.ls!("./tmp/#{repo_name}") |> Enum.map(&String.to_charlist/1)
+    :zip.create("./tmp/#{repo_name}/#{repo_name}.zip", files)
   end
 end
