@@ -1,0 +1,23 @@
+version: 2
+jobs:
+  test:
+    parallelism: 1
+    docker:
+      - image: circleci/elixir:1.9.1
+        environment:
+          MIX_ENV: test
+
+    steps:
+      - checkout
+
+      - run: mix local.hex --force
+      - run: mix local.rebar --force  # fetch a copy of rebar (without prompt)
+
+      - run: mix do deps.get --only test, deps.compile, compile
+      - run: mix test
+
+workflows:
+  version: 2
+  ci:
+    jobs:
+      - test
