@@ -9,15 +9,32 @@ jobs:
 
     steps:
       - checkout
-
       - run: mix local.hex --force
-      - run: mix local.rebar --force  # fetch a copy of rebar (without prompt)
-
+      - run: mix local.rebar --force
       - run: mix do deps.get --only test, deps.compile, compile
       - run: mix test
 
+  publish:
+    parallelism: 1
+    docker:
+      - image: circleci/elixir:1.9.1
+
+    steps:
+      - checkout
+      - run: mix local.hex --force
+      - run: mix local.rebar --force
+      - run: mix deps.get
+      - run: mix hex.publish --yes
+
 workflows:
   version: 2
-  ci:
+
+  ci_and_cd:
     jobs:
       - test
+      - publish:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
