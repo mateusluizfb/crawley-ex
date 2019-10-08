@@ -1,3 +1,4 @@
+[![Hex pm](https://img.shields.io/hexpm/v/crawley_ex.svg)](https://hex.pm/packages/crawley_ex)
 [![CircleCI](https://circleci.com/gh/mateusluizfb/crawley-ex/tree/master.svg?style=svg)](https://circleci.com/gh/mateusluizfb/crawley-ex/tree/master)
 
 ---
