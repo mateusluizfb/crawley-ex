@@ -15,7 +15,7 @@ defmodule Crawley do
     repo_id = repo["id"]
     repo_clone_url = repo["clone_url"]
 
-    spawn fn ->
+    {:ok, _} = Task.start_link fn ->
       Crawley.RepoUtils.clone_repo(repo_id, repo_clone_url)
       Crawley.S3.upload_repo("crawley-repos", repo_id)
       Crawley.RepoUtils.delete_repo(repo_id)
