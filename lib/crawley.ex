@@ -5,8 +5,8 @@ defmodule Crawley do
       per_page: per_page,
       page: page
     })
-    
-    download_repos(t)
+
+    download_repos(repos)
   end
 
   defp download_repos(repos), do: Enum.map(repos, &git_clone_async/1)
