@@ -1,3 +1,7 @@
+[![CircleCI](https://circleci.com/gh/mateusluizfb/crawley-ex/tree/master.svg?style=svg)](https://circleci.com/gh/mateusluizfb/crawley-ex/tree/master)
+
+---
+
 # Crawley
 
 Crawley is an elixir package that mine the Github API searching for repos to download and then zip and upload them to a S3 bucket.
