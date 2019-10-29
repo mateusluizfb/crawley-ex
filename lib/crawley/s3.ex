@@ -1,4 +1,7 @@
 defmodule Crawley.S3 do
+  @behaviour Crawley.Storage
+
+  @impl Crawley.Storage
   def upload_repo(bucket_name, repo_name) do
     Crawley.Storage.zip_folder(repo_name)
 
