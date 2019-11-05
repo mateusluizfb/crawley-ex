@@ -15,7 +15,11 @@ defmodule Crawley do
 
   Returns an list of tuples like `{:ok, pid}`.
   """
-  defp download_repos(repos), do: Enum.map(repos, &git_clone_async/1)
+  defp download_repos(repos) do
+    repos
+      |> Enum.filter(fn repo -> not Enum.member?(urls_ignored(), repo["clone_url"]) end)
+      |> Enum.map(&git_clone_async/1)
+  end
 
   @doc """
   Downloads a github repo and upload it to the S3 asynchronously.
@@ -31,5 +35,11 @@ defmodule Crawley do
       Crawley.S3.upload_repo("crawley-repos", repo_id)
       Crawley.RepoUtils.delete_repo(repo_id)
     end
+  end
+
+  defp urls_ignored do
+    [
+      "https://github.com/erlang/otp.git"
+    ]
   end
 end
