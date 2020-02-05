@@ -6,8 +6,8 @@ defmodule Crawley.LocalStorage do
     Crawley.Storage.zip_folder(repo_name)
 
     File.rename(
-      "./tmp/#{repo_name}/#{repo_name}.zip",
-      "./tmp/buckets/#{remote_folder_name}/#{repo_name}.zip"
+      "./code/#{repo_name}/#{repo_name}.zip",
+      "./code/#{repo_name}.zip"
     )
   end
 end

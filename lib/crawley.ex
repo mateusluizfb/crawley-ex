@@ -1,4 +1,6 @@
 defmodule Crawley do
+  @use_local_storage System.get_env("USE_LOCAL_STORAGE")
+
   def run(%{lang: lang, per_page: per_page, page: page}) do
     repos = Crawley.RepoUtils.get_repositories(%{
       lang: lang,
@@ -32,7 +34,7 @@ defmodule Crawley do
 
     Task.start_link fn ->
       Crawley.RepoUtils.clone_repo(repo_id, repo_clone_url)
-      Crawley.S3.upload_repo("crawley-repos", repo_id)
+      storage(@use_local_storage).upload_repo("crawley-repos", repo_id)
       Crawley.RepoUtils.delete_repo(repo_id)
     end
   end
@@ -42,4 +44,7 @@ defmodule Crawley do
       "https://github.com/erlang/otp.git"
     ]
   end
+
+  defp storage("true"), do: Crawley.LocalStorage
+  defp storage("false"), do: Crawley.S3
 end

@@ -13,12 +13,12 @@ defmodule Crawley.RepoUtils do
   end
 
   def clone_repo(name, clone_url) do
-    repo_folder = "./tmp/#{name}"
+    repo_folder = "./code/#{name}"
     {:ok, _} = Git.clone([clone_url, repo_folder])
   end
 
   def delete_repo(repo_name) do
-    File.rm_rf("./tmp/#{repo_name}")
+    File.rm_rf("./code/#{repo_name}")
   end
 
   defp github_client() do

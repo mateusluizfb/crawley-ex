@@ -25,3 +25,4 @@ crawley-*.tar
 .env
 
 /tmp
+/code

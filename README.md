@@ -5,7 +5,7 @@
 
 # Crawley
 
-Crawley is an elixir package that mine the Github API searching for repos to download and then zip and upload them to a S3 bucket.
+Crawley is an elixir package that scrap the Github API searching for repos to download and then zip and upload them to a S3 bucket.
 
 Before you run anything, remember to create an `.env` file like this:
 
@@ -13,9 +13,16 @@ Before you run anything, remember to create an `.env` file like this:
 export GITHUB_TOKEN=""
 export AWS_ACCESS_KEY_ID=""
 export AWS_SECRET_ACCESS_KEY=""
+export USE_LOCAL_STORAGE=true/false
 ```
 
 The `GITHUB_TOKEN` var is your github token.
+
+---
+To run:
+1. `iex -S mix`
+2. `Crawley.run(%{lang: lang, per_page: per_page, page: page})`
+---
 
 ### To contribute:
 
