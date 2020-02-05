@@ -1,6 +1,4 @@
 defmodule Crawley do
-  @use_local_storage System.get_env("USE_LOCAL_STORAGE")
-
   def run(%{lang: lang, per_page: per_page, page: page}) do
     repos = Crawley.RepoUtils.get_repositories(%{
       lang: lang,
@@ -31,10 +29,11 @@ defmodule Crawley do
   defp git_clone_async(repo) do
     repo_id = repo["id"]
     repo_clone_url = repo["clone_url"]
+    use_local_storage = System.get_env("USE_LOCAL_STORAGE")
 
     Task.start_link fn ->
       Crawley.RepoUtils.clone_repo(repo_id, repo_clone_url)
-      storage(@use_local_storage).upload_repo("crawley-repos", repo_id)
+      storage(use_local_storage).upload_repo("crawley-repos", repo_id)
       Crawley.RepoUtils.delete_repo(repo_id)
     end
   end

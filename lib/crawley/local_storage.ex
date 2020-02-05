@@ -2,7 +2,7 @@ defmodule Crawley.LocalStorage do
   @behaviour Crawley.Storage
 
   @impl Crawley.Storage
-  def upload_repo(remote_folder_name, repo_name) do
+  def upload_repo(_, repo_name) do
     Crawley.Storage.zip_folder(repo_name)
 
     File.rename(
