@@ -5,7 +5,7 @@
 
 # Crawley
 
-Crawley is an elixir package that scrap the Github API searching for repos to download and then zip and upload them to a S3 bucket.
+Crawley is an elixir package that scraps the Github API searching for repos to download and then zip and upload them to a S3 bucket.
 
 Before you run anything, remember to create an `.env` file like this:
 
